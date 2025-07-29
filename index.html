@@ -114,6 +114,7 @@
 <body>
   <div class="aspect-ratio-box">
     <div class="content">
+      
       <p>MASKCALC 3.0</p>
 
      <div class="radio-text-row">
@@ -157,6 +158,17 @@
     <input type="text" id="mayor_gap_od" name="mayor_gap_od" style="width: 60px;">    
   </div>
 
+<!-- Imagen entre los grupos -->
+
+<div style="display: flex; align-items: flex-start; padding-top: 10px;">
+    <img src="cabeza.jpg" alt="Imagen descriptiva" style="width: 100%; height: auto; margin-top: -10px;">
+  </div>
+
+
+
+  <!--<img src="cabeza.jpg" alt="Imagen descriptiva" style="width: 25%; height: auto; align-self: center;">-->
+
+
   <div class="triple-fields right-group">
      <label>NP_OI:</label>    
     <input type="text" id="np_oi" name="np_oi" style="width: 60px;">
@@ -186,13 +198,13 @@
       if (estimulo) {
         switch (estimulo.id) {
           case 'g1_1':
-            aie.value = 'SUPRA-AURAL seleccionado';
+            aie.value = 40;
             break;
           case 'g1_2':
-            aie.value = 'INSERCION seleccionado';
+            aie.value = 60;
             break;
           case 'g1_3':
-            aie.value = 'OSEA seleccionado';
+            aie.value = 0;
             break;
         }
       }
@@ -200,10 +212,10 @@
       if (enmascarador) {
         switch (enmascarador.id) {
           case 'g2_1':
-            aim.value = 'SUPRA-AURAL seleccionado';
+            aim.value = 40;
             break;
           case 'g2_2':
-            aim.value = 'INSERCION seleccionado';
+            aim.value = 60;
             break;
         }
       }
