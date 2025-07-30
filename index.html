@@ -131,9 +131,10 @@
   </span>
 
   <!-- Botón Calcular -->
-  <button style="background-color: red; color: white; padding: 4px 10px; height: 32px; min-width: 100px; border: none; border-radius: 4px; font-size: 14px; line-height: 1; cursor: pointer;">
-    Calc
-  </button>
+  <button id="toggleColorBtn" style="background-color: green; color: white; padding: 4px 10px; height: 32px; min-width: 100px; border: none; border-radius: 4px; font-size: 14px; line-height: 1; cursor: pointer;">
+  Calcular
+</button>
+
 </div>
 
      <div class="radio-text-row">
@@ -249,6 +250,24 @@
       radio.addEventListener('change', actualizarCampos);
     });
   });
+
+
+const toggleColorBtn = document.getElementById("toggleColorBtn");
+
+toggleColorBtn.addEventListener("click", function () {
+  const currentColor = toggleColorBtn.style.backgroundColor;
+
+  if (currentColor === "red") {
+    toggleColorBtn.style.backgroundColor = "green";
+    toggleColorBtn.textContent = "Calcular";
+  } else {
+    toggleColorBtn.style.backgroundColor = "red";
+    toggleColorBtn.textContent = "Limpiar";
+  }
+});
+
+
+
 </script>
 
 
