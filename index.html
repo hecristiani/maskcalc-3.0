@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <style>
+  body.fijado {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+</style>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -414,6 +423,7 @@ function Calcular() {
 
   const recomendacion_od = document.getElementById("recomendacion_od");
   if (np_od - aie < mejor_vo_oi) {
+    
     recomendacion_od.innerHTML = "Estímulo en OD:<br> no necesita enmascarar.";
     recomendacion_od.classList.remove("parpadeo");
   } else if (min_mask_od > max_mask_od) {
