@@ -260,13 +260,19 @@
   
   <!-- Leyenda -->
   <span style="font-size: 20px; font-weight: bold; color: #333;">
-    MASKCALC 3.0
+    MASKCALC
   </span>
 
-  <!-- Botón Calcular -->
-  <button id="toggleColorBtn" style="background-color: green; color: white; padding: 4px 10px; height: 32px; min-width: 100px; border: none; border-radius: 4px; font-size: 14px; line-height: 1; cursor: pointer;">
-  Calcular
+  
+  <!-- NUEVOS BOTONES -->
+<button id="btnCalcular" style="background-color: green; color: white; padding: 6px 16px; border: none; border-radius: 4px; font-size: 12px; cursor: pointer;">
+  CALCULA
 </button>
+
+<button id="btnLimpiar" style="background-color: red; color: white; padding: 6px 16px; border: none; border-radius: 4px; font-size: 12px; cursor: pointer;">
+  LIMPIA
+</button>
+
 
 </div>
 
@@ -428,26 +434,6 @@
   });
 
 
-const toggleColorBtn = document.getElementById("toggleColorBtn");
-
-toggleColorBtn.addEventListener("click", function () {
-  const currentColor = toggleColorBtn.style.backgroundColor;
-
-  if (currentColor === "red") {
-    toggleColorBtn.style.backgroundColor = "green";
-    toggleColorBtn.textContent = "Calcular";
-
-    Limpiar()
-
-
-
-  } else {
-    toggleColorBtn.style.backgroundColor = "red";
-    toggleColorBtn.textContent = "Limpiar";
-
-    Calcular()
-  }
-});
 
 
 function Calcular() {
@@ -527,13 +513,15 @@ function Limpiar() {
   document.getElementById("resultadoMinMask_od").textContent = "MIN_MASK: —";
   document.getElementById("resultadoMaxMask_od").textContent = "MAX_MASK: —";
   document.getElementById("resultadoMedMask_od").textContent = "MED_MASK: —";
-
+  document.getElementById("recomendacion_od").textContent = "";
   document.getElementById("resultadoMinMask_oi").textContent = "MIN_MASK: —";
   document.getElementById("resultadoMaxMask_oi").textContent = "MAX_MASK: —";
   document.getElementById("resultadoMedMask_oi").textContent = "MED_MASK: —";
-
+  document.getElementById("recomendacion_oi").textContent = "";
 }
 
+document.getElementById("btnCalcular").addEventListener("click", Calcular);
+document.getElementById("btnLimpiar").addEventListener("click", Limpiar);
 
 </script>
 
