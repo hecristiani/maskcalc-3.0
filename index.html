@@ -424,7 +424,7 @@ function Calcular() {
   const recomendacion_od = document.getElementById("recomendacion_od");
   if (np_od - aie < mejor_vo_oi) {
     
-    recomendacion_od.innerHTML = "Estímulo en OD:<br> no necesita enmascarar.";
+    recomendacion_od.innerHTML = "Estímulo en OD:<br> No necesita enmascarar.";
     recomendacion_od.classList.remove("parpadeo");
   } else if (min_mask_od > max_mask_od) {
     recomendacion_od.innerHTML = "Estímulo en OD:<br> Posible Dilema de Enmascaramiento.";
@@ -448,7 +448,7 @@ function Calcular() {
 
   const recomendacion_oi = document.getElementById("recomendacion_oi");
   if (np_oi - aie < mejor_vo_od) {
-    recomendacion_oi.innerHTML = "Estímulo en OI:<br> no necesita enmascarar.";
+    recomendacion_oi.innerHTML = "Estímulo en OI:<br> No necesita enmascarar.";
     recomendacion_oi.classList.remove("parpadeo");
   } else if (min_mask_oi > max_mask_oi) {
     recomendacion_oi.innerHTML = "Estímulo en OI:<br> Posible Dilema de Enmascaramiento.";
