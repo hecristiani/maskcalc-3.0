@@ -204,6 +204,40 @@
     text-align: center;
   }
 }
+.resultados-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fila-resultado {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.resultado-columna {
+  flex: 1;
+  font-weight: bold;
+  font-size: 10px;
+  word-wrap: break-word;
+}
+
+.resultado-columna.izquierda {
+  color: red;
+  text-align: left;
+}
+
+.resultado-columna.derecha {
+  color: blue;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .fila-resultado {
+    flex-direction: row; /* mantener horizontal incluso en móvil */
+  }
+}
 
 
 
@@ -302,40 +336,45 @@
 </div>
 
 <div class="resultados-container">
-  <!-- Columna izquierda: OD -->
-  <div class="resultado-columna izquierda">
-    <div id="resultadoMinMask_od" style="font-weight: bold; color: red; font-size: 10px">
+
+  <div class="fila-resultado">
+    <div class="resultado-columna izquierda" id="resultadoMinMask_od">
       MIN_MASK: —
     </div>
-    <div id="resultadoMaxMask_od" style="margin-top: 10px; font-weight: bold; color: red; font-size: 10px">
-      MAX_MASK: —
-    </div>
-    <div id="resultadoMedMask_od" style="margin-top: 10px; font-weight: bold; color: red; font-size: 10px">
-      MED_MASK: —
-    </div>
-    <div id="recomendacion_od" style="margin-top: 15px; font-weight: bold; color: red; font-size: 10px; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
-  <!-- Recomendación OD -->
-</div>
-
-  </div>
-
-  <!-- Columna derecha: OI -->
-  <div class="resultado-columna derecha">
-    <div id="resultadoMinMask_oi" style="font-weight: bold; color: blue; font-size: 10px">
+    <div class="resultado-columna derecha" id="resultadoMinMask_oi">
       MIN_MASK: —
     </div>
-    <div id="resultadoMaxMask_oi" style="margin-top: 10px; font-weight: bold; color: blue; font-size: 10px">
+  </div>
+
+  <div class="fila-resultado">
+    <div class="resultado-columna izquierda" id="resultadoMaxMask_od">
       MAX_MASK: —
     </div>
-    <div id="resultadoMedMask_oi" style="margin-top: 10px; font-weight: bold; color: blue; font-size: 10px">
+    <div class="resultado-columna derecha" id="resultadoMaxMask_oi">
+      MAX_MASK: —
+    </div>
+  </div>
+
+  <div class="fila-resultado">
+    <div class="resultado-columna izquierda" id="resultadoMedMask_od">
       MED_MASK: —
     </div>
-    <div id="recomendacion_oi" style="margin-top: 15px; font-weight: bold; color: blue; font-size: 10px; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
-  <!-- Recomendación OI -->
+    <div class="resultado-columna derecha" id="resultadoMedMask_oi">
+      MED_MASK: —
+    </div>
+  </div>
+
+  <div class="fila-resultado">
+    <div class="resultado-columna izquierda" id="recomendacion_od">
+      <!-- Recomendación OD -->
+    </div>
+    <div class="resultado-columna derecha" id="recomendacion_oi">
+      <!-- Recomendación OI -->
+    </div>
+  </div>
+
 </div>
 
-  </div>
-</div>
 
 
 
@@ -433,7 +472,7 @@ function Calcular() {
   const recomendacion_od = document.getElementById("recomendacion_od");
   if (np_od - aie < mejor_vo_oi) {
     
-    recomendacion_od.innerHTML = "Estímulo en OD:<br> No necesita enmascarar.";
+    recomendacion_od.innerHTML = "Estímulo en OD:<br> NNo necesita enmascarar.";
     recomendacion_od.classList.remove("parpadeo");
   } else if (min_mask_od > max_mask_od) {
     recomendacion_od.innerHTML = "Estímulo en OD:<br> Posible Dilema de Enmascaramiento.";
