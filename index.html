@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MASKCALC 3.0</title>
+
+
+
+
+
   <style>
     .aspect-ratio-box {
       position: relative;
@@ -112,10 +117,24 @@
 
 </head>
 <body>
+
   <div class="aspect-ratio-box">
     <div class="content">
       
-      <p>MASKCALC 3.0</p>
+      
+
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 20px; background-color: #f5f5f5;">
+  
+  <!-- Leyenda -->
+  <span style="font-size: 20px; font-weight: bold; color: #333;">
+    MASKCALC 3.0
+  </span>
+
+  <!-- Botón Calcular -->
+  <button style="background-color: red; color: white; padding: 4px 10px; height: 32px; min-width: 100px; border: none; border-radius: 4px; font-size: 14px; line-height: 1; cursor: pointer;">
+    Calc
+  </button>
+</div>
 
      <div class="radio-text-row">
   <div class="radio-group">
@@ -127,9 +146,10 @@
     <input type="radio" name="group1" id="g1_3">
     <label for="g1_3">OSEA</label>
   </div>
-  <div class="text-field-aie">
-    <label for="aie">AIE:</label><br>
-    <input type="text" id="aie" name="aie" value=40>
+  <div class="text-field-aie"style="margin-top: 20px;">
+
+    <label for="aie" style="margin-bottom: 2px;">AIE:</label>
+<input type="text" id="aie" name="aie" value="40" style="margin-top: 0; width: 30px;">
   </div>
 </div>
 
@@ -142,8 +162,8 @@
     <label for="g2_2">INSERCION</label>
   </div>
   <div class="text-field-aim">
-    <label for="aim">AIM:</label><br>
-    <input type="text" id="aim" name="aim" value=40>
+    <label for="aim" style="margin-bottom: 2px;">AIM:</label>
+<input type="text" id="aim" name="aim" value="40" style="margin-top: 0; width: 30px;">
   </div>
 </div>
 
@@ -163,6 +183,8 @@
 <div style="display: flex; align-items: flex-start; padding-top: 10px;">
     <img src="cabeza.jpg" alt="Imagen descriptiva" style="width: 100%; height: auto; margin-top: -10px;">
   </div>
+
+
 
 
 
