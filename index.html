@@ -196,9 +196,7 @@
             <input type="radio" name="group1" id="g1_3" />
             <label for="g1_3">OSEA</label>
 
-            <div id="efectoOclusionContainer" style="display: none; margin-top: 10px;">
-              <label><input type="checkbox" id="efectoOclusion" /> Efecto Oclusión</label>
-            </div>
+            
           </div>
 
           <div class="text-field-aie" style="margin-top: 20px;">
@@ -302,12 +300,7 @@
               break;
           }
 
-          if (estimulo.id === 'g1_3') {
-            efectoOclusionContainer.style.display = 'block';
-          } else {
-            efectoOclusionContainer.style.display = 'none';
-            document.getElementById('efectoOclusion').checked = false;
-          }
+          
         }
 
         if (enmascarador) {
@@ -342,9 +335,7 @@
 
       // OD
       let min_mask_od = np_od - aie + mayor_gap_oi;
-      if (document.getElementById('g1_3').checked && document.getElementById('efectoOclusion').checked) {
-        min_mask_od += 18;
-      }
+      
       const max_mask_od = aim + mejor_vo_od;
       const med_mask_od = (min_mask_od + max_mask_od) / 2;
 
