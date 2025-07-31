@@ -3,23 +3,12 @@
 <head>
 
   <style>
-  body.fijado {
-    position: fixed;
-    width: 100%;
-    overflow: hidden;
-  }
-</style>
+    body.fijado {
+      position: fixed;
+      width: 100%;
+      overflow: hidden;
+    }
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <title>MASKCALC 3.0</title>
-
-
-
-
-
-  <style>
     .aspect-ratio-box {
       position: relative;
       width: 100%;
@@ -28,508 +17,406 @@
       background-color: #e0e0e0;
       margin: auto;
       border: 2px solid #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 90vh;
     }
 
     .content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      font-family: sans-serif;
       padding: 20px;
       box-sizing: border-box;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    .radio-text-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 10px;
     }
 
     .radio-group {
       margin: 10px 0;
     }
 
-    .text-fields {
+    .text-field-aie,
+    .text-field-aim {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .text-field-aie input,
+    .text-field-aim input {
+      width: 30px; /* ancho original pequeño */
+      padding: 4px;
+      margin-top: 0;
+    }
+
+    .triple-fields-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .triple-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .triple-fields input {
+      width: 60px; /* ancho original para estos campos */
+      padding: 4px;
+    }
+
+    .left-group {
+      align-items: flex-start;
+    }
+
+    .right-group {
+      align-items: flex-end;
+    }
+
+    .resultados-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
-    .text-fields label {
+    .fila-resultado {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .resultado-columna {
+      flex: 1;
       font-weight: bold;
+      font-size: 10px;
+      word-wrap: break-word;
     }
 
-    .text-fields input {
-      width: 100px;
-      padding: 4px;
+    .resultado-columna.izquierda {
+      color: red;
+      text-align: left;
+    }
+
+    .resultado-columna.derecha {
+      color: blue;
+      text-align: right;
+    }
+
+    .parpadeo {
+      animation: parpadear 1s infinite;
+    }
+
+    @keyframes parpadear {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Contenedor de leyenda y botones abajo */
+    .footer-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      background-color: #f5f5f5;
+      margin-top: 20px;
+      flex-shrink: 0;
+    }
+
+    .footer-container span {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      flex-grow: 1;
+    }
+
+    button {
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 6px 16px;
+      color: white;
+    }
+
+    #btnCalcular {
+      background-color: green;
+    }
+
+    #btnLimpiar {
+      background-color: red;
     }
 
     @media (max-width: 600px) {
       .aspect-ratio-box {
         max-width: 100%;
         border-width: 1px;
+        height: auto;
       }
 
-      .content {
-        font-size: 14px;
-        padding: 10px;
+      .resultado-columna {
+        font-size: 12px;
+      }
+
+      .fila-resultado {
+        flex-direction: row;
       }
     }
-
-    .radio-text-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 10px;
-}
-
-.text-field-aie,
-.text-field-aim {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.text-field-aie input,
-.text-field-aim input {
-  width: 100px;
-  padding: 4px;
-}
-
-.triple-fields-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.triple-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.left-group {
-  align-items: flex-start;
-}
-
-.right-group {
-  align-items: flex-end;
-}
-
-.resultados-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.resultado-columna {
-  flex: 1;
-  min-width: 150px;
-}
-
-.resultado-columna.izquierda {
-  text-align: left;
-}
-
-.resultado-columna.derecha {
-  text-align: right;
-}
-
-@media (max-width: 600px) {
-  .resultados-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .resultado-columna {
-    max-width: 100%;
-  }
-
-  .resultado-columna.izquierda {
-    text-align: left;
-  }
-
-  .resultado-columna.derecha {
-    text-align: right;
-  }
-}
-
-
-  .parpadeo {
-    animation: parpadear 1s infinite;
-  }
-
-  @keyframes parpadear {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  .resultados-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 20px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.resultado-columna {
-  flex: 1 1 45%;
-  min-width: 150px;
-  max-width: 48%;
-  word-wrap: break-word;
-}
-
-.resultado-columna.izquierda {
-  text-align: left;
-}
-
-.resultado-columna.derecha {
-  text-align: right;
-}
-
-@media (max-width: 600px) {
-  .resultados-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .resultado-columna {
-    max-width: 100%;
-    text-align: center;
-  }
-}
-.resultados-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.fila-resultado {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.resultado-columna {
-  flex: 1;
-  font-weight: bold;
-  font-size: 10px;
-  word-wrap: break-word;
-}
-
-.resultado-columna.izquierda {
-  color: red;
-  text-align: left;
-}
-
-.resultado-columna.derecha {
-  color: blue;
-  text-align: right;
-}
-
-@media (max-width: 600px) {
-  .fila-resultado {
-    flex-direction: row; /* mantener horizontal incluso en móvil */
-  }
-}
-
-
-
-
-
   </style>
 
-
-
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MASKCALC 3.0</title>
 </head>
 <body>
 
   <div class="aspect-ratio-box">
     <div class="content">
-      
-      
 
-      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 20px; background-color: #f5f5f5;">
-  
-  <!-- Leyenda -->
-  <span style="font-size: 20px; font-weight: bold; color: #333;">
-    MASKCALC
-  </span>
+      <!-- Radios arriba -->
+      <div>
+        <div class="radio-text-row">
+          <div class="radio-group">
+            <p>ESTIMULO:</p>
+            <input type="radio" name="group1" id="g1_1" checked />
+            <label for="g1_1">SUPRA-AURAL</label><br />
+            <input type="radio" name="group1" id="g1_2" />
+            <label for="g1_2">INSERCION</label><br />
+            <input type="radio" name="group1" id="g1_3" />
+            <label for="g1_3">OSEA</label>
 
-  
-  <!-- NUEVOS BOTONES -->
-<button id="btnCalcular" style="background-color: green; color: white; padding: 6px 16px; border: none; border-radius: 4px; font-size: 12px; cursor: pointer;">
-  CALCULA
-</button>
+            <div id="efectoOclusionContainer" style="display: none; margin-top: 10px;">
+              <label><input type="checkbox" id="efectoOclusion" /> Efecto Oclusión</label>
+            </div>
+          </div>
 
-<button id="btnLimpiar" style="background-color: red; color: white; padding: 6px 16px; border: none; border-radius: 4px; font-size: 12px; cursor: pointer;">
-  LIMPIA
-</button>
+          <div class="text-field-aie" style="margin-top: 20px;">
+            <label for="aie" style="margin-bottom: 2px;">AIE:</label>
+            <input type="text" id="aie" name="aie" value="40" />
+          </div>
+        </div>
 
+        <div class="radio-text-row">
+          <div class="radio-group">
+            <p>ENMASCARADOR:</p>
+            <input type="radio" name="group2" id="g2_1" checked />
+            <label for="g2_1">SUPRA-AURAL</label><br />
+            <input type="radio" name="group2" id="g2_2" />
+            <label for="g2_2">INSERCION</label>
+          </div>
+          <div class="text-field-aim">
+            <label for="aim" style="margin-bottom: 2px;">AIM:</label>
+            <input type="text" id="aim" name="aim" value="40" />
+          </div>
+        </div>
+      </div>
 
-</div>
+      <!-- Campos NP, VO, GAP y resultados -->
+      <div>
+        <div class="triple-fields-row">
+          <div class="triple-fields left-group">
+            <label>NP_OD:</label>
+            <input type="text" id="np_od" name="np_od" inputmode="numeric" />
+            <label>MEJOR_VO_OD:</label>
+            <input type="text" id="mejor_vo_od" name="mejor_vo_od" inputmode="numeric" />
+            <label>MAX_GAP_OD:</label>
+            <input type="text" id="mayor_gap_od" name="mayor_gap_od" inputmode="numeric" />
+          </div>
 
-     <div class="radio-text-row">
-  <div class="radio-group">
-    <p>ESTIMULO:</p>
-    <input type="radio" name="group1" id="g1_1" checked>
-    <label for="g1_1">SUPRA-AURAL</label><br>
-    <input type="radio" name="group1" id="g1_2">
-    <label for="g1_2">INSERCION</label><br>
-    <input type="radio" name="group1" id="g1_3">
-    <label for="g1_3">OSEA</label>
-  </div>
-  <div class="text-field-aie"style="margin-top: 20px;">
+          <div style="display: flex; align-items: flex-start; padding-top: 10px;">
+            <img src="cabeza.jpg" alt="Imagen descriptiva" style="width: 100%; height: auto; margin-top: -10px;" />
+          </div>
 
-    <label for="aie" style="margin-bottom: 2px;">AIE:</label>
-<input type="text" id="aie" name="aie" value="40" style="margin-top: 0; width: 30px;">
-  </div>
-</div>
+          <div class="triple-fields right-group">
+            <label>NP_OI:</label>
+            <input type="text" id="np_oi" name="np_oi" inputmode="numeric" />
+            <label>MEJOR_VO_OI:</label>
+            <input type="text" id="mejor_vo_oi" name="mejor_vo_oi" inputmode="numeric" />
+            <label>MAX_GAP_OI:</label>
+            <input type="text" id="mayor_gap_oi" name="mayor_gap_oi" inputmode="numeric" />
+          </div>
+        </div>
 
-<div class="radio-text-row">
-  <div class="radio-group">
-    <p>ENMASCARADOR:</p>
-    <input type="radio" name="group2" id="g2_1" checked>
-    <label for="g2_1">SUPRA-AURAL</label><br>
-    <input type="radio" name="group2" id="g2_2">
-    <label for="g2_2">INSERCION</label>
-  </div>
-  <div class="text-field-aim">
-    <label for="aim" style="margin-bottom: 2px;">AIM:</label>
-<input type="text" id="aim" name="aim" value="40" style="margin-top: 0; width: 30px;">
-  </div>
-</div>
+        <div class="resultados-container">
+          <div class="fila-resultado">
+            <div class="resultado-columna izquierda" id="resultadoMinMask_od">MIN_MASK: —</div>
+            <div class="resultado-columna derecha" id="resultadoMinMask_oi">MIN_MASK: —</div>
+          </div>
 
+          <div class="fila-resultado">
+            <div class="resultado-columna izquierda" id="resultadoMaxMask_od">MAX_MASK: —</div>
+            <div class="resultado-columna derecha" id="resultadoMaxMask_oi">MAX_MASK: —</div>
+          </div>
 
-<div class="triple-fields-row">
-  <div class="triple-fields left-group">
-    <label>NP_OD:</label>    
-    <input type="text" id="np_od" name="np_od" style="width: 60px;" inputmode="numeric">
-    <label>MEJOR_VO_OD:</label>
-    <input type="text" id="mejor_vo_od" name="mejor_vo_od" style="width: 60px;" inputmode="numeric">    
-    <label>MAX_GAP_OD:</label>
-    <input type="text" id="mayor_gap_od" name="mayor_gap_od" style="width: 60px;" inputmode="numeric">    
-  </div>
+          <div class="fila-resultado">
+            <div class="resultado-columna izquierda" id="resultadoMedMask_od">MED_MASK: —</div>
+            <div class="resultado-columna derecha" id="resultadoMedMask_oi">MED_MASK: —</div>
+          </div>
 
-<!-- Imagen entre los grupos -->
+          <div class="fila-resultado">
+            <div class="resultado-columna izquierda" id="recomendacion_od"></div>
+            <div class="resultado-columna derecha" id="recomendacion_oi"></div>
+          </div>
+        </div>
+      </div>
 
-<div style="display: flex; align-items: flex-start; padding-top: 10px;">
-    <img src="cabeza.jpg" alt="Imagen descriptiva" style="width: 100%; height: auto; margin-top: -10px;">
-  </div>
-
-
-
-
-
-  <!--<img src="cabeza.jpg" alt="Imagen descriptiva" style="width: 25%; height: auto; align-self: center;">-->
-
-
-  <div class="triple-fields right-group">
-     <label>NP_OI:</label>    
-    <input type="text" id="np_oi" name="np_oi" style="width: 60px;" inputmode="numeric">
-    <label>MEJOR_VO_OI:</label>
-    <input type="text" id="mejor_vo_oi" name="mejor_vo_oi" style="width: 60px;" inputmode="numeric">    
-    <label>MAX_GAP_OI:</label>
-    <input type="text" id="mayor_gap_oi" name="mayor_gap_oi" style="width: 60px;" inputmode="numeric">  
-  </div>
-</div>
-
-<div class="resultados-container">
-
-  <div class="fila-resultado">
-    <div class="resultado-columna izquierda" id="resultadoMinMask_od">
-      MIN_MASK: —
-    </div>
-    <div class="resultado-columna derecha" id="resultadoMinMask_oi">
-      MIN_MASK: —
+      <!-- Leyenda y botones abajo -->
+      <div class="footer-container">
+        <span>MASKCALC</span>
+        <button id="btnCalcular">CALCULA</button>
+        <button id="btnLimpiar">LIMPIA</button>
+      </div>
     </div>
   </div>
 
-  <div class="fila-resultado">
-    <div class="resultado-columna izquierda" id="resultadoMaxMask_od">
-      MAX_MASK: —
-    </div>
-    <div class="resultado-columna derecha" id="resultadoMaxMask_oi">
-      MAX_MASK: —
-    </div>
-  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      function actualizarCampos() {
+        const estimulo = document.querySelector('input[name="group1"]:checked');
+        const enmascarador = document.querySelector('input[name="group2"]:checked');
+        const aie = document.getElementById('aie');
+        const aim = document.getElementById('aim');
+        const efectoOclusionContainer = document.getElementById('efectoOclusionContainer');
 
-  <div class="fila-resultado">
-    <div class="resultado-columna izquierda" id="resultadoMedMask_od">
-      MED_MASK: —
-    </div>
-    <div class="resultado-columna derecha" id="resultadoMedMask_oi">
-      MED_MASK: —
-    </div>
-  </div>
+        if (estimulo) {
+          switch (estimulo.id) {
+            case 'g1_1':
+              aie.value = 40;
+              break;
+            case 'g1_2':
+              aie.value = 60;
+              break;
+            case 'g1_3':
+              aie.value = 0;
+              break;
+          }
 
-  <div class="fila-resultado">
-    <div class="resultado-columna izquierda" id="recomendacion_od">
-      <!-- Recomendación OD -->
-    </div>
-    <div class="resultado-columna derecha" id="recomendacion_oi">
-      <!-- Recomendación OI -->
-    </div>
-  </div>
-
-</div>
-
-
-
-
-
-
-
-
-  </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    function actualizarCampos() {
-      const estimulo = document.querySelector('input[name="group1"]:checked');
-      const enmascarador = document.querySelector('input[name="group2"]:checked');
-
-      const aie = document.getElementById('aie');
-      const aim = document.getElementById('aim');
-
-      if (estimulo) {
-        switch (estimulo.id) {
-          case 'g1_1':
-            aie.value = 40;
-            break;
-          case 'g1_2':
-            aie.value = 60;
-            break;
-          case 'g1_3':
-            aie.value = 0;
-            break;
+          if (estimulo.id === 'g1_3') {
+            efectoOclusionContainer.style.display = 'block';
+          } else {
+            efectoOclusionContainer.style.display = 'none';
+            document.getElementById('efectoOclusion').checked = false;
+          }
         }
+
+        if (enmascarador) {
+          switch (enmascarador.id) {
+            case 'g2_1':
+              aim.value = 40;
+              break;
+            case 'g2_2':
+              aim.value = 60;
+              break;
+          }
+        }
+
+        Calcular();
       }
 
-      if (enmascarador) {
-        switch (enmascarador.id) {
-          case 'g2_1':
-            aim.value = 40;
-            break;
-          case 'g2_2':
-            aim.value = 60;
-            break;
-        }
-      }
-      Calcular()
-    }
-
-    // Escuchar cambios en todos los radio buttons
-    const radios = document.querySelectorAll('input[type="radio"]');
-    radios.forEach(radio => {
-      radio.addEventListener('change', actualizarCampos);
+      const radios = document.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', actualizarCampos);
+      });
     });
-  });
 
+    function Calcular() {
+      const np_od = parseInt(document.getElementById("np_od").value) || 0;
+      const aie = parseInt(document.getElementById("aie").value) || 0;
+      const mayor_gap_oi = parseInt(document.getElementById("mayor_gap_oi").value) || 0;
+      const np_oi = parseInt(document.getElementById("np_oi").value) || 0;
+      const aim = parseInt(document.getElementById("aim").value) || 0;
+      const mayor_gap_od = parseInt(document.getElementById("mayor_gap_od").value) || 0;
+      const mejor_vo_oi = parseInt(document.getElementById("mejor_vo_oi").value) || 0;
+      const mejor_vo_od = parseInt(document.getElementById("mejor_vo_od").value) || 0;
 
+      // OD
+      let min_mask_od = np_od - aie + mayor_gap_oi;
+      if (document.getElementById('g1_3').checked && document.getElementById('efectoOclusion').checked) {
+        min_mask_od += 18;
+      }
+      const max_mask_od = aim + mejor_vo_od;
+      const med_mask_od = (min_mask_od + max_mask_od) / 2;
 
+      document.getElementById("resultadoMinMask_od").textContent = "MIN_MASK: " + min_mask_od;
+      document.getElementById("resultadoMaxMask_od").textContent = "MAX_MASK: " + max_mask_od;
+      document.getElementById("resultadoMedMask_od").textContent = "MED_MASK: " + med_mask_od;
 
-function Calcular() {
-  const np_od = parseInt(document.getElementById("np_od").value) || 0;
-  const aie = parseInt(document.getElementById("aie").value) || 0;
-  const mayor_gap_oi = parseInt(document.getElementById("mayor_gap_oi").value) || 0;
-  const np_oi = parseInt(document.getElementById("np_oi").value) || 0;
-  const aim = parseInt(document.getElementById("aim").value) || 0;
-  const mayor_gap_od = parseInt(document.getElementById("mayor_gap_od").value) || 0;
-  const mejor_vo_oi = parseInt(document.getElementById("mejor_vo_oi").value) || 0;
-  const mejor_vo_od = parseInt(document.getElementById("mejor_vo_od").value) || 0;
+      const recomendacion_od = document.getElementById("recomendacion_od");
+      if (np_od - aie < mejor_vo_oi) {
+        recomendacion_od.innerHTML = "Estímulo en OD:<br> No necesita enmascarar.";
+        recomendacion_od.classList.remove("parpadeo");
+      } else if (min_mask_od > max_mask_od) {
+        recomendacion_od.innerHTML = "Estímulo en OD:<br> Posible Dilema de Enmascaramiento.";
+        recomendacion_od.classList.add("parpadeo");
+        setTimeout(() => {
+          recomendacion_od.classList.remove("parpadeo");
+        }, 5000);
+      } else {
+        recomendacion_od.innerHTML = "Estímulo OD:<br> Enmascarar OI con " + med_mask_od + "dB";
+        recomendacion_od.classList.remove("parpadeo");
+      }
 
-  // OD
-  const min_mask_od = np_od - aie + mayor_gap_oi;
-  const max_mask_od = aim + mejor_vo_od;
-  const med_mask_od = (min_mask_od + max_mask_od) / 2;
+      // OI
+      const min_mask_oi = np_oi - aie + mayor_gap_od;
+      const max_mask_oi = aim + mejor_vo_oi;
+      const med_mask_oi = (min_mask_oi + max_mask_oi) / 2;
 
-  document.getElementById("resultadoMinMask_od").textContent = "MIN_MASK: " + min_mask_od;
-  document.getElementById("resultadoMaxMask_od").textContent = "MAX_MASK: " + max_mask_od;
-  document.getElementById("resultadoMedMask_od").textContent = "MED_MASK: " + med_mask_od;
+      document.getElementById("resultadoMinMask_oi").textContent = "MIN_MASK: " + min_mask_oi;
+      document.getElementById("resultadoMaxMask_oi").textContent = "MAX_MASK: " + max_mask_oi;
+      document.getElementById("resultadoMedMask_oi").textContent = "MED_MASK: " + med_mask_oi;
 
-  const recomendacion_od = document.getElementById("recomendacion_od");
-  if (np_od - aie < mejor_vo_oi) {
-    
-    recomendacion_od.innerHTML = "Estímulo en OD:<br> No necesita enmascarar.";
-    recomendacion_od.classList.remove("parpadeo");
-  } else if (min_mask_od > max_mask_od) {
-    recomendacion_od.innerHTML = "Estímulo en OD:<br> Posible Dilema de Enmascaramiento.";
-    recomendacion_od.classList.add("parpadeo");
-    setTimeout(() => {
-      recomendacion_od.classList.remove("parpadeo");
-    }, 5000);
-  } else {
-    recomendacion_od.innerHTML = "Estímulo OD:<br> Enmascarar OI con " + med_mask_od + "dB" ;
-    recomendacion_od.classList.remove("parpadeo");
-  }
-
-  // OI
-  const min_mask_oi = np_oi - aie + mayor_gap_od;
-  const max_mask_oi = aim + mejor_vo_oi;
-  const med_mask_oi = (min_mask_oi + max_mask_oi) / 2;
-
-  document.getElementById("resultadoMinMask_oi").textContent = "MIN_MASK: " + min_mask_oi;
-  document.getElementById("resultadoMaxMask_oi").textContent = "MAX_MASK: " + max_mask_oi;
-  document.getElementById("resultadoMedMask_oi").textContent = "MED_MASK: " + med_mask_oi;
-
-  const recomendacion_oi = document.getElementById("recomendacion_oi");
-  if (np_oi - aie < mejor_vo_od) {
-    recomendacion_oi.innerHTML = "Estímulo en OI:<br> No necesita enmascarar.";
-    recomendacion_oi.classList.remove("parpadeo");
-  } else if (min_mask_oi > max_mask_oi) {
-    recomendacion_oi.innerHTML = "Estímulo en OI:<br> Posible Dilema de Enmascaramiento.";
-    recomendacion_oi.classList.add("parpadeo");
-    setTimeout(() => {
-      recomendacion_oi.classList.remove("parpadeo");
-    }, 5000);
-  } else {
-    recomendacion_oi.innerHTML = "Estímulo OI:<br> Enmascarar OD con " + med_mask_oi + "dB" ;
-    recomendacion_oi.classList.remove("parpadeo");
-  }
-}
-
-
-function Limpiar() {
-  // IDs de los campos que deben mantenerse
-  const camposExcluidos = ['aie', 'aim'];
-
-  // Limpiar todos los inputs tipo texto excepto los excluidos
-  const inputs = document.querySelectorAll('input[type="text"]');
-  inputs.forEach(input => {
-    if (!camposExcluidos.includes(input.id)) {
-      input.value = '';
+      const recomendacion_oi = document.getElementById("recomendacion_oi");
+      if (np_oi - aie < mejor_vo_od) {
+        recomendacion_oi.innerHTML = "Estímulo en OI:<br> No necesita enmascarar.";
+        recomendacion_oi.classList.remove("parpadeo");
+      } else if (min_mask_oi > max_mask_oi) {
+        recomendacion_oi.innerHTML = "Estímulo en OI:<br> Posible Dilema de Enmascaramiento.";
+        recomendacion_oi.classList.add("parpadeo");
+        setTimeout(() => {
+          recomendacion_oi.classList.remove("parpadeo");
+        }, 5000);
+      } else {
+        recomendacion_oi.innerHTML = "Estímulo OI:<br> Enmascarar OD con " + med_mask_oi + "dB";
+        recomendacion_oi.classList.remove("parpadeo");
+      }
     }
-  });
 
-  // Limpiar los resultados
-  document.getElementById("resultadoMinMask_od").textContent = "MIN_MASK: —";
-  document.getElementById("resultadoMaxMask_od").textContent = "MAX_MASK: —";
-  document.getElementById("resultadoMedMask_od").textContent = "MED_MASK: —";
-  document.getElementById("recomendacion_od").textContent = "";
-  document.getElementById("resultadoMinMask_oi").textContent = "MIN_MASK: —";
-  document.getElementById("resultadoMaxMask_oi").textContent = "MAX_MASK: —";
-  document.getElementById("resultadoMedMask_oi").textContent = "MED_MASK: —";
-  document.getElementById("recomendacion_oi").textContent = "";
-}
+    function Limpiar() {
+      const camposExcluidos = ['aie', 'aim'];
 
-document.getElementById("btnCalcular").addEventListener("click", Calcular);
-document.getElementById("btnLimpiar").addEventListener("click", Limpiar);
+      const inputs = document.querySelectorAll('input[type="text"]');
+      inputs.forEach(input => {
+        if (!camposExcluidos.includes(input.id)) {
+          input.value = '';
+        }
+      });
 
-</script>
+      document.getElementById("resultadoMinMask_od").textContent = "MIN_MASK: —";
+      document.getElementById("resultadoMaxMask_od").textContent = "MAX_MASK: —";
+      document.getElementById("resultadoMedMask_od").textContent = "MED_MASK: —";
+      document.getElementById("recomendacion_od").textContent = "";
+      document.getElementById("resultadoMinMask_oi").textContent = "MIN_MASK: —";
+      document.getElementById("resultadoMaxMask_oi").textContent = "MAX_MASK: —";
+      document.getElementById("resultadoMedMask_oi").textContent = "MED_MASK: —";
+      document.getElementById("recomendacion_oi").textContent = "";
+    }
 
+    document.getElementById("btnCalcular").addEventListener("click", Calcular);
+    document.getElementById("btnLimpiar").addEventListener("click", Limpiar);
+  </script>
 
-
-
-
-
+  
 
 </body>
 </html>
