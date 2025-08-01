@@ -53,7 +53,7 @@
 
     .text-field-aie input,
     .text-field-aim input {
-      width: 30px; /* ancho original pequeño */
+      width: 60px;
       padding: 4px;
       margin-top: 0;
     }
@@ -72,7 +72,7 @@
     }
 
     .triple-fields input {
-      width: 60px; /* ancho original para estos campos */
+      width: 60px;
       padding: 4px;
     }
 
@@ -88,7 +88,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .fila-resultado {
@@ -158,6 +158,16 @@
       background-color: red;
     }
 
+    /* Ocultar spinners en inputs number */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
     @media (max-width: 600px) {
       .aspect-ratio-box {
         max-width: 100%;
@@ -195,13 +205,19 @@
             <label for="g1_2">INSERCION</label><br />
             <input type="radio" name="group1" id="g1_3" />
             <label for="g1_3">OSEA</label>
-
-            
           </div>
 
           <div class="text-field-aie" style="margin-top: 20px;">
             <label for="aie" style="margin-bottom: 2px;">AIE:</label>
-            <input type="text" id="aie" name="aie" value="40" />
+            <input
+              type="number"
+              id="aie"
+              name="aie"
+              value="40"
+              step="1"
+              inputmode="numeric"
+              min="0"
+            />
           </div>
         </div>
 
@@ -215,23 +231,29 @@
           </div>
           <div class="text-field-aim">
             <label for="aim" style="margin-bottom: 2px;">AIM:</label>
-            <input type="text" id="aim" name="aim" value="40" />
+            <input
+              type="number"
+              id="aim"
+              name="aim"
+              value="40"
+              step="1"
+              inputmode="numeric"
+              min="0"
+            />
           </div>
         </div>
       </div>
-
-
 
       <!-- Campos NP, VO, GAP y resultados -->
       <div>
         <div class="triple-fields-row">
           <div class="triple-fields left-group">
-            <label>NP_OD:</label>
-            <input type="text" id="np_od" name="np_od" inputmode="numeric" />
-            <label>MEJOR_VO_OD:</label>
-            <input type="text" id="mejor_vo_od" name="mejor_vo_od" inputmode="numeric" />
-            <label>MAX_GAP_OD:</label>
-            <input type="text" id="mayor_gap_od" name="mayor_gap_od" inputmode="numeric" />
+            <label for="np_od">NP_OD:</label>
+            <input type="number" id="np_od" name="np_od" inputmode="decimal" step="any" min="0" placeholder="0" />
+            <label for="mejor_vo_od">MEJOR_VO_OD:</label>
+            <input type="number" id="mejor_vo_od" name="mejor_vo_od" inputmode="decimal" step="any" min="0" placeholder="0" />
+            <label for="mayor_gap_od">MAX_GAP_OD:</label>
+            <input type="number" id="mayor_gap_od" name="mayor_gap_od" inputmode="decimal" step="any" min="0" placeholder="0" />
           </div>
 
           <div style="display: flex; align-items: flex-start; padding-top: 10px;">
@@ -239,21 +261,21 @@
           </div>
 
           <div class="triple-fields right-group">
-            <label>NP_OI:</label>
-            <input type="text" id="np_oi" name="np_oi" inputmode="numeric" />
-            <label>MEJOR_VO_OI:</label>
-            <input type="text" id="mejor_vo_oi" name="mejor_vo_oi" inputmode="numeric" />
-            <label>MAX_GAP_OI:</label>
-            <input type="text" id="mayor_gap_oi" name="mayor_gap_oi" inputmode="numeric" />
+            <label for="np_oi">NP_OI:</label>
+            <input type="number" id="np_oi" name="np_oi" inputmode="decimal" step="any" min="0" placeholder="0" />
+            <label for="mejor_vo_oi">MEJOR_VO_OI:</label>
+            <input type="number" id="mejor_vo_oi" name="mejor_vo_oi" inputmode="decimal" step="any" min="0" placeholder="0" />
+            <label for="mayor_gap_oi">MAX_GAP_OI:</label>
+            <input type="number" id="mayor_gap_oi" name="mayor_gap_oi" inputmode="decimal" step="any" min="0" placeholder="0" />
           </div>
         </div>
 
         <!-- Leyenda y botones abajo -->
-      <div class="footer-container">
-        <span>MASKCALC</span>
-        <button id="btnCalcular">CALCULA</button>
-        <button id="btnLimpiar">LIMPIA</button>
-      </div>
+        <div class="footer-container">
+          <span>MASKCALC</span>
+          <button id="btnCalcular">CALCULA</button>
+          <button id="btnLimpiar">LIMPIA</button>
+        </div>
 
         <div class="resultados-container">
           <div class="fila-resultado">
@@ -278,42 +300,48 @@
         </div>
       </div>
 
-      
     </div>
   </div>
 
   <script>
+    // helper para leer y normalizar (coma -> punto)
+    function getNumericValue(id) {
+      const el = document.getElementById(id);
+      if (!el) return 0;
+      let v = el.value + '';
+      v = v.replace(',', '.'); // aceptar coma como decimal
+      const num = parseFloat(v);
+      return isNaN(num) ? 0 : num;
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
       function actualizarCampos() {
         const estimulo = document.querySelector('input[name="group1"]:checked');
         const enmascarador = document.querySelector('input[name="group2"]:checked');
-        const aie = document.getElementById('aie');
-        const aim = document.getElementById('aim');
-        const efectoOclusionContainer = document.getElementById('efectoOclusionContainer');
+        const aieEl = document.getElementById('aie');
+        const aimEl = document.getElementById('aim');
 
         if (estimulo) {
           switch (estimulo.id) {
             case 'g1_1':
-              aie.value = 40;
+              aieEl.value = 40;
               break;
             case 'g1_2':
-              aie.value = 60;
+              aieEl.value = 60;
               break;
             case 'g1_3':
-              aie.value = 0;
+              aieEl.value = 0;
               break;
           }
-
-          
         }
 
         if (enmascarador) {
           switch (enmascarador.id) {
             case 'g2_1':
-              aim.value = 40;
+              aimEl.value = 40;
               break;
             case 'g2_2':
-              aim.value = 60;
+              aimEl.value = 60;
               break;
           }
         }
@@ -328,18 +356,17 @@
     });
 
     function Calcular() {
-      const np_od = parseInt(document.getElementById("np_od").value) || 0;
-      const aie = parseInt(document.getElementById("aie").value) || 0;
-      const mayor_gap_oi = parseInt(document.getElementById("mayor_gap_oi").value) || 0;
-      const np_oi = parseInt(document.getElementById("np_oi").value) || 0;
-      const aim = parseInt(document.getElementById("aim").value) || 0;
-      const mayor_gap_od = parseInt(document.getElementById("mayor_gap_od").value) || 0;
-      const mejor_vo_oi = parseInt(document.getElementById("mejor_vo_oi").value) || 0;
-      const mejor_vo_od = parseInt(document.getElementById("mejor_vo_od").value) || 0;
+      const np_od = getNumericValue("np_od");
+      const aie = getNumericValue("aie");
+      const mayor_gap_oi = getNumericValue("mayor_gap_oi");
+      const np_oi = getNumericValue("np_oi");
+      const aim = getNumericValue("aim");
+      const mayor_gap_od = getNumericValue("mayor_gap_od");
+      const mejor_vo_oi = getNumericValue("mejor_vo_oi");
+      const mejor_vo_od = getNumericValue("mejor_vo_od");
 
       // OD
       let min_mask_od = np_od - aie + mayor_gap_oi;
-      
       const max_mask_od = aim + mejor_vo_od;
       const med_mask_od = (min_mask_od + max_mask_od) / 2;
 
@@ -390,7 +417,7 @@
     function Limpiar() {
       const camposExcluidos = ['aie', 'aim'];
 
-      const inputs = document.querySelectorAll('input[type="text"]');
+      const inputs = document.querySelectorAll('input[type="number"]');
       inputs.forEach(input => {
         if (!camposExcluidos.includes(input.id)) {
           input.value = '';
@@ -410,8 +437,6 @@
     document.getElementById("btnCalcular").addEventListener("click", Calcular);
     document.getElementById("btnLimpiar").addEventListener("click", Limpiar);
   </script>
-
-  
 
 </body>
 </html>
